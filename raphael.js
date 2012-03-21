@@ -2610,7 +2610,15 @@
     }
     
     elproto.isPointInside = function (x, y) {
-        var rp = this.realPath = this.realPath || getPath[this.type](this);
+        var rp;
+
+		rp = this.realPath = this.realPath || getPath[this.type](this);
+
+		if ( this.attr('transform') != null && this.attr('transform').length > 0 )	// modified by ARIZZO
+		{																			//
+			rp = R.transformPath( rp, this.attr('transform') );						//
+		}																			//
+		
         return R.isPointInsidePath(rp, x, y);
     };
     
@@ -3854,8 +3862,10 @@ window.Raphael.svg && function (R) {
                 el = $(type + "Gradient", {id: id});
                 element.gradient = el;
                 $(el, type == "radial" ? {
-                    fx: fx,
-                    fy: fy
+                    /*fx: fx,
+                    fy: fy*/	// modified by ARIZZO
+					cx: fx,
+					cy: fy
                 } : {
                     x1: vector[0],
                     y1: vector[1],
@@ -4246,7 +4256,7 @@ window.Raphael.svg && function (R) {
                             !R.is(attrs["fill-opacity"], "undefined") &&
                                 R.is(params["fill-opacity"], "undefined") &&
                                 $(node, {"fill-opacity": attrs["fill-opacity"]});
-                        } else if (/*(o.type == "circle" || o.type == "ellipse" || Str(value).charAt() != "r") &&*/ addGradientFill(o, value)) { // MODIFIED BY ARIZZO in order to allow radial gradients in every kind of shape
+                        } else if (/*(o.type == "circle" || o.type == "ellipse" || Str(value).charAt() != "r") && */ addGradientFill(o, value)) {
                             if ("opacity" in attrs || "fill-opacity" in attrs) {
                                 var gradient = R._g.doc.getElementById(node.getAttribute("fill").replace(/^url\(#|\)$/g, E));
                                 if (gradient) {
