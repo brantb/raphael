@@ -2058,6 +2058,8 @@
                 if (dot.color.error) {
                     return null;
                 }
+				//dot.opacity = dot.color.opacity; // added ARIZZO
+				dot.color.hasOwnProperty('opacity') && (dot.opacity = dot.color.opacity); // added ARIZZO
                 dot.color = dot.color.hex;
                 par[2] && (dot.offset = par[2] + "%");
                 dots.push(dot);

@@ -107,8 +107,10 @@ window.Raphael.svg && function (R) {
                 el = $(type + "Gradient", {id: id});
                 element.gradient = el;
                 $(el, type == "radial" ? {
-                    fx: fx,
-                    fy: fy
+                    /*fx: fx,
+                    fy: fy*/
+					cx: fx,
+					cy: fy
                 } : {
                     x1: vector[0],
                     y1: vector[1],
