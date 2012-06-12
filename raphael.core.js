@@ -1574,7 +1574,7 @@ define(['eve'], function (eve) {
     var pathDimensions = R.pathBBox = function (path) {
         var pth = paths(path);
         if (pth.bbox) {
-            return pth.bbox;
+            return clone(pth.bbox);
         }
         if (!path) {
             return {x: 0, y: 0, width: 0, height: 0, x2: 0, y2: 0};
@@ -2058,6 +2058,8 @@ define(['eve'], function (eve) {
                 if (dot.color.error) {
                     return null;
                 }
+				//dot.opacity = dot.color.opacity; // added ARIZZO
+				dot.color.hasOwnProperty('opacity') && (dot.opacity = dot.color.opacity); // added ARIZZO
                 dot.color = dot.color.hex;
                 par[2] && (dot.offset = par[2] + "%");
                 dots.push(dot);
@@ -3576,8 +3578,16 @@ define(['eve'], function (eve) {
      = (boolean) `true` if point inside the shape
     \*/
     elproto.isPointInside = function (x, y) {
-        var rp = this.realPath = this.realPath || getPath[this.type](this);
-        return R.isPointInsidePath(rp, x, y);
+        var rp;
+
+		rp = this.realPath = this.realPath || getPath[this.type](this);
+
+		if ( this.attr('transform') != null && this.attr('transform').length > 0 )
+		{
+			rp = R.transformPath( rp, this.attr('transform') );
+		}
+		
+        return R.isPointInsidePath(rp, x, y);		
     };
     /*\
      * Element.getBBox
