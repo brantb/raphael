@@ -1,7 +1,7 @@
 /* This is a fake, local version of AMD's define function. It makes files
 built with the make script work without requiring a full AMD loader. If
 you're using an AMD loader in your project, don't require the built files
-(raphel.js and raphel.min.js). Use raphael.amd.js instead. */
+(raphael.js and raphael.min.js). Use raphael.amd.js instead. */
 
 /*global Raphael*/
 
