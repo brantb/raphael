@@ -1,18 +1,17 @@
 #!/usr/bin/env node
 
 /*
-To use this script, must have: 
-- uglify.js (npm install uglify)
-- eve/eve.js (get it from https://github.com/DmitryBaranovskiy/eve) 
+Before running this script, type:
+	npm install --dev
+to install eve and uglify-js.
 */
-
 
 var setup = {
         input: {
             core: "raphael.core.js",
             svg: "raphael.svg.js",
             vml: "raphael.vml.js",
-            eve: "eve/eve.js",
+            eve: "node_modules/eve/eve.js",
             copy: "copy.js",
             fakeDefine: "fakedefine.js"
         },
